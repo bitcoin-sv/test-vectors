@@ -1,0 +1,14 @@
+{
+  "name": "bsv-test-vector-scripts",
+  "version": "1.0.0",
+  "description": "Helper scripts for managing BSV Blockchain test vectors",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "importFromSVNode": "node scripts/import-from-svnode.js"
+  },
+  "author": "BSV Association",
+  "dependencies": {
+    "csv-writer": "^1.6.0"
+  }
+}

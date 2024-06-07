@@ -22,8 +22,8 @@ function jsonToCsv(sourceFile, targetFile, headers) {
 }
 
 jsonToCsv(
-    '../../../bitcoin-sv/src/test/data/script_tests.json',
-    '../script_vectors.csv',
+    '../bitcoin-sv/src/test/data/script_tests.json',
+    './data/script_vectors.csv',
     // TODO: improve this, straight copy from the bitcoin-sv JSON file
     ['[[wit..., amount]?', 'scriptSig', 'flags', 'expected_scripterror', 'comments']
 );
