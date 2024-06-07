@@ -5,10 +5,13 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "importFromSVNode": "node scripts/import-from-svnode.js"
+    "importFromSVNode": "node scripts/import-from-svnode.js",
+    "exportToJS": "node scripts/export-to-js.js"
   },
   "author": "BSV Association",
   "dependencies": {
-    "csv-writer": "^1.6.0"
+    "csv-parse": "^5.5.6",
+    "csv-writer": "^1.6.0",
+    "handlebars": "^4.7.8"
   }
 }
