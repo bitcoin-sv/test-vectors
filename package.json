@@ -5,8 +5,8 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "importFromSVNode": "node scripts/import-from-svnode.js",
-    "exportToJS": "node scripts/export-to-js.js"
+    "svnode-import": "node scripts/svnode-import.js",
+    "js-export": "node scripts/js-export.js"
   },
   "author": "BSV Association",
   "dependencies": {

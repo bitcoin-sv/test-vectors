@@ -19,7 +19,7 @@ function csvToJs(sourceFile, targetFile) {
             }
         })
         .on('end', () => {
-            const templateString = fs.readFileSync('scripts/js-export-template.handlebars', 'utf-8');
+            const templateString = fs.readFileSync('scripts/js-export.handlebars', 'utf-8');
             const template = Handlebars.compile(templateString);
             const jsData = template({
                 rows: rows.map((row) => {
