@@ -13,17 +13,14 @@ const OUTPUT_DIR = './data';
   {
     source: 'base58_encode_decode.json',
     headers: ['hex_input', 'base58_output'],
-    singleCellComments: false,
   },
   {
     source: 'base58_keys_invalid.json',
     headers: ['base58_key_invalid'],
-    singleCellComments: false,
   },
   {
     source: 'base58_keys_valid.json',
     headers: ['base58_address', 'hex_key', 'addrType', 'isCompressed', 'isPrivkey', 'isTestnet'],
-    singleCellComments: false,
     rowProcessor: (row) => {
       if (row.length === 3) {
         const {
@@ -41,8 +38,27 @@ const OUTPUT_DIR = './data';
       throw new Error('Invalid row format');
     },
   },
+  {
+    source: 'sighash.json',
+    headers: ['raw_transaction', 'script', 'input_index', 'hashType', 'signature_hash (regular)', 'signature_hash(no forkid)'],
+    skipFirstRow: true,
+  },
+  {
+    source: 'tx_invalid.json',
+    headers: ['[[[prevout hash, prevout index, prevout scriptPubKey], [input 2], ...]', 'serializedTransaction', 'verifyFlags'],
+    singleCellComments: true,
+  },
+  {
+    source: 'tx_valid.json',
+    headers: ['[[[prevout hash, prevout index, prevout scriptPubKey], [input 2], ...]', 'serializedTransaction', 'verifyFlags|[verifyFlags1, verifyFlags2, ...]]'],
+    singleCellComments: true,
+  },
 ].forEach(({
-  source, headers, singleCellComments = false, rowProcessor = false,
+  source,
+  headers,
+  singleCellComments = false,
+  rowProcessor = false,
+  skipFirstRow = false,
 }) => {
   jsonToCsv(
     `${SV_NODE_DIR}/${source}`,
@@ -50,5 +66,6 @@ const OUTPUT_DIR = './data';
     headers,
     singleCellComments,
     rowProcessor,
+    skipFirstRow,
   );
 });

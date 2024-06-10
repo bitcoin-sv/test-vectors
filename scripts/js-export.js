@@ -1,6 +1,20 @@
+import fs from 'fs';
+import path from 'path';
 import { csvToJs } from './csv-to-js.js';
 
-csvToJs('./data/script_tests.csv', './npm/script_vectors.js');
-csvToJs('./data/base58_encode_decode.csv', './npm/base58_encode_decode.js');
-csvToJs('./data/base58_keys_invalid.csv', './npm/base58_keys_invalid.js');
-csvToJs('./data/base58_keys_valid.csv', './npm/base58_keys_valid.js');
+// read in all CSV files from the data directory and convert them to JS
+const dataPath = './data';
+const outputPath = './npm';
+fs.readdir(dataPath, (err, files) => {
+  if (err) {
+    throw new Error('Unable to scan directory', err);
+  }
+
+  files.forEach((file) => {
+    const filePath = path.join(dataPath, file);
+    if (path.extname(filePath) === '.csv') {
+      const jsFilePath = path.join(outputPath, file.replace('.csv', '.js'));
+      csvToJs(filePath, jsFilePath);
+    }
+  });
+});
