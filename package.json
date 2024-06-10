@@ -1,17 +1,27 @@
 {
-  "name": "bsv-test-vector-scripts",
+  "name": "bsv-test-vectors",
+  "type": "module",
   "version": "1.0.0",
-  "description": "Helper scripts for managing BSV Blockchain test vectors",
+  "description": "BSV Blockchain test vectors",
+  "author": "BSV Association",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=20.11.0"
+  },
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "svnode-import": "node scripts/svnode-import.js",
     "js-export": "node scripts/js-export.js"
   },
-  "author": "BSV Association",
   "dependencies": {
     "csv-parse": "^5.5.6",
     "csv-writer": "^1.6.0",
     "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
   }
 }

@@ -1,30 +1,54 @@
-const fs = require('fs');
-const createCsvWriter = require('csv-writer').createArrayCsvWriter;
+import { jsonToCsv } from './json-to-csv.js';
 
-function jsonToCsv(sourceFile, targetFile, headers) {
-    const csvWriter = createCsvWriter({
-        path: targetFile,
-        header: headers
-    });
-    let jsonData = JSON.parse(fs.readFileSync(sourceFile, 'utf-8'));
-    // Modify rows with only one cell, these are comments and will be marked
-    // when parsing this data, make sure to use a library that support comments
-    // e.g. https://csv.js.org/parse/options/comment/
-    jsonData = jsonData.map(row => {
-        if (row.length === 1) {
-            row[0] = `# ${row[0]}`;
-        }
-        return row;
-    });
+const SV_NODE_DIR = '../bitcoin-sv/src/test/data';
+const OUTPUT_DIR = './data';
 
-    csvWriter.writeRecords(jsonData)
-        .then(() => console.log('The CSV file was written successfully'));
-}
-
-jsonToCsv(
-    '../bitcoin-sv/src/test/data/script_tests.json',
-    './data/script_vectors.csv',
-    // TODO: improve this, straight copy from the bitcoin-sv JSON file
-    ['[[wit..., amount]?', 'scriptSig', 'flags', 'expected_scripterror', 'comments']
-);
 // TODO: import the others from sv-node
+[
+  {
+    source: 'script_tests.json',
+    headers: ['[[wit..., amount]?', 'scriptSig', 'flags', 'expected_scripterror', 'comments'],
+    singleCellComments: true,
+  },
+  {
+    source: 'base58_encode_decode.json',
+    headers: ['hex_input', 'base58_output'],
+    singleCellComments: false,
+  },
+  {
+    source: 'base58_keys_invalid.json',
+    headers: ['base58_key_invalid'],
+    singleCellComments: false,
+  },
+  {
+    source: 'base58_keys_valid.json',
+    headers: ['base58_address', 'hex_key', 'addrType', 'isCompressed', 'isPrivkey', 'isTestnet'],
+    singleCellComments: false,
+    rowProcessor: (row) => {
+      if (row.length === 3) {
+        const {
+          addrType, isCompressed, isPrivkey, isTestnet,
+        } = row[2];
+        return [
+          row[0], // base58_address
+          row[1], // hex_key
+          addrType,
+          isCompressed,
+          isPrivkey,
+          isTestnet,
+        ];
+      }
+      throw new Error('Invalid row format');
+    },
+  },
+].forEach(({
+  source, headers, singleCellComments = false, rowProcessor = false,
+}) => {
+  jsonToCsv(
+    `${SV_NODE_DIR}/${source}`,
+    `${OUTPUT_DIR}/${source.replace('.json', '.csv')}`,
+    headers,
+    singleCellComments,
+    rowProcessor,
+  );
+});
