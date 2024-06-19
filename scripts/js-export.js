@@ -7,7 +7,7 @@ const dataPath = './data';
 const outputPath = './npm';
 fs.readdir(dataPath, (err, files) => {
   if (err) {
-    throw new Error('Unable to scan directory', err);
+    throw new Error('Unable to scan directory');
   }
 
   files.forEach((file) => {

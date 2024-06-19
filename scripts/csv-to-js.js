@@ -52,6 +52,7 @@ export const csvToJs = (sourceFile, targetFile) => {
       // Extract headers from the first row
       const headers = rows.shift();
       fs.writeFileSync(targetFile, template({
+        targetFile,
         headers,
         rows,
       }));

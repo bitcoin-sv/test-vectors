@@ -2,9 +2,13 @@
   "name": "bsv-test-vectors",
   "type": "module",
   "version": "1.0.0",
-  "description": "BSV Blockchain test vectors",
+  "description": "BSV Blockchain Test Vectors",
   "author": "BSV Association",
   "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitcoin-sv/test-vectors.git"
+  },
   "engines": {
     "node": ">=20.11.0"
   },

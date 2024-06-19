@@ -19,14 +19,14 @@ export const jsonToCsv = (
     jsonData.shift();
   }
   jsonData = jsonData.map((row) => {
-    if (rowProcessor) {
-      return rowProcessor(row);
-    }
     if (singleCellComments && row.length === 1) {
       // Modify rows with only one cell, these are comments and will be marked
       // when parsing this data, make sure to use a library that support comments
       // e.g. https://csv.js.org/parse/options/comment/
       return [`# ${row[0]}`];
+    }
+    if (rowProcessor) {
+      return rowProcessor(row);
     }
     return row;
   });

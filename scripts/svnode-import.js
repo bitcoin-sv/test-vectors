@@ -9,6 +9,19 @@ const OUTPUT_DIR = './data';
     source: 'script_tests.json',
     headers: ['[[wit..., amount]?', 'scriptSig', 'flags', 'expected_scripterror', 'comments'],
     singleCellComments: true,
+    rowProcessor: (row) => {
+      if (row.length === 6) {
+        // There are a couple of rows that don't fit the regular format
+        return [
+          row[0],
+          `${row[1]},${row[2]}`,
+          row[3],
+          row[4],
+          row[5],
+        ];
+      }
+      return row;
+    },
   },
   {
     source: 'base58_encode_decode.json',
